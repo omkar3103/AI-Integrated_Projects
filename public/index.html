@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Student Help AI Chatbot</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+#chat{
+width:60%;
+margin:auto;
+background:white;
+padding:20px;
+height:400px;
+overflow-y:auto;
+border:1px solid #ccc;
+}
+
+input{
+width:60%;
+padding:10px;
+}
+
+button{
+padding:10px 20px;
+}
+
+.user{
+color:blue;
+}
+
+.ai{
+color:green;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Student Help AI Chatbot</h2>
+
+<div id="chat"></div>
+
+<br>
+
+<input id="question" placeholder="Ask your question">
+<button onclick="askAI()">Send</button>
+
+<script>
+
+async function askAI(){
+
+const question = document.getElementById("question").value;
+
+if(!question) return;
+
+const chat = document.getElementById("chat");
+
+chat.innerHTML += `<p class="user"><b>You:</b> ${question}</p>`;
+
+const res = await fetch("/ask",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({question})
+});
+
+const data = await res.json();
+
+chat.innerHTML += `<p class="ai"><b>AI:</b> ${data.answer}</p>`;
+
+chat.scrollTop = chat.scrollHeight;
+
+document.getElementById("question").value="";
+
+}
+
+</script>
+
+</body>
+
+</html>

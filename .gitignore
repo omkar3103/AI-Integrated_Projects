@@ -1,5 +1,5 @@
-node_modules/
-.env
-package-lock.json
-*.log
-.DS_Store
+node_modules/             -prevents uploading all installed packages (very large folder)
+.env                      -prevents uploading all installed packages (very large folder)
+package-lock.json         -prevents pushing the lock file.
+*.log                      -ignores log files.
+.DS_Store                  -Mac system file (not needed in project).
